@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 const tg = typeof window !== "undefined" ? window.Telegram?.WebApp : null;
-const BUILD = "v3-link";
+const BUILD = "v4-chat";
 const platform = tg?.platform ?? "no-api";
 const inApp = !!tg?.initData;
 // Deterministic strip colors (no theme vars) — remotely diagnosable.
@@ -24,7 +24,6 @@ export default function App() {
   const [snap, setSnap] = useState(null);
   const [err, setErr] = useState("");
   const [sent, setSent] = useState("");
-  const [sendErr, setSendErr] = useState("");
 
   useEffect(() => {
     tg?.ready();
@@ -35,21 +34,14 @@ export default function App() {
       .catch((e) => setErr(String(e.message || e)));
   }, []);
 
+  // v4-chat: sendData was proven non-delivering on the owner's client
+  // (web_app_data never reached the bot while deep-links always did), so
+  // every action routes through the guaranteed chat path.
   const run = (a) => {
-    setSendErr("");
     if (a.confirm && !window.confirm("Abort the running turn?")) return;
-    if (!tg || !inApp) {
-      openViaChat(a.id);
-      return;
-    }
-    try {
-      tg.sendData(JSON.stringify({ type: "pi-dashboard", action: a.id }));
-      setSent(a.id);
-      setTimeout(() => setSent(""), 5000);
-    } catch (e) {
-      setSendErr(`sendData failed — falling back to chat link.`);
-      openViaChat(a.id);
-    }
+    openViaChat(a.id);
+    setSent(a.id);
+    setTimeout(() => setSent(""), 5000);
   };
 
   const openViaChat = (id) => {
@@ -82,14 +74,13 @@ export default function App() {
           through the chat instead.
         </div>
       )}
-      {sendErr && <div className="warn" role="alert">⚠ {sendErr}</div>}
 
       <section>
         <h2>Actions</h2>
         <div className="grid">
           {ACTIONS.map((a) => (
             <button key={a.id} onClick={() => run(a)} className={sent === a.id ? "ok" : ""}>
-              {sent === a.id ? "✓ sent — reply arrives in this chat" : a.label}
+              {sent === a.id ? "↗ opened in chat…" : a.label}
             </button>
           ))}
         </div>
