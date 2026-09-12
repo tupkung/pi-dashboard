@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-09-12T03:29:47.230Z",
+  "generated_at": "2026-09-12T03:29:54.643Z",
   "status": {
-    "state": "idle",
+    "state": "busy",
     "model": "zai/glm-5.3"
   },
   "sessions": [
