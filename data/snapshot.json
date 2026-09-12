@@ -1,0 +1,6 @@
+{
+  "generated_at": "2026-09-12T02:40:00Z",
+  "status": { "state": "idle", "model": "awaiting first bridge push" },
+  "sessions": [],
+  "knowledge": { "dev": 0, "research": 0, "ux-ui": 0, "docs": 0, "qa": 0, "review": 0 }
+}
