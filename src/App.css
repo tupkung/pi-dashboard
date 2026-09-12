@@ -87,3 +87,18 @@ li {
   font-size: 0.9rem;
   margin: 8px 0 0;
 }
+.strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 10;
+}
+.fallback-links {
+  margin-top: 8px;
+  font-size: 0.85rem;
+}
+.fallback-links a {
+  color: var(--tg-theme-link-color, #2481cc);
+}
