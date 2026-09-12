@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 const tg = typeof window !== "undefined" ? window.Telegram?.WebApp : null;
-// Visible build stamp: ends "which bundle is this?" arguments forever.
-const BUILD = "v2-diag";
+const BUILD = "v3-link";
 const platform = tg?.platform ?? "no-api";
 const inApp = !!tg?.initData;
+// Deterministic strip colors (no theme vars) — remotely diagnosable.
+const STRIP = tg ? (inApp ? "#22c55e" : "#f59e0b") : "#ef4444";
+const BOT = "tupkung_dev_agent_bot";
 
-// Snapshot is fetched from raw.githubusercontent.com so data pushes never
-// need a Pages rebuild. CDN caching (~5 min) matches the heartbeat budget.
 const SNAPSHOT_URL =
   "https://raw.githubusercontent.com/tupkung/pi-dashboard/main/data/snapshot.json";
 
@@ -17,6 +17,8 @@ const ACTIONS = [
   { id: "reload", label: "🔄 Reload runtime" },
   { id: "abort", label: "⛔ Abort (confirm)", confirm: true },
 ];
+
+const viaChat = (id) => `https://t.me/${BOT}?start=dashboard_${id}`;
 
 export default function App() {
   const [snap, setSnap] = useState(null);
@@ -35,23 +37,25 @@ export default function App() {
 
   const run = (a) => {
     setSendErr("");
-    if (!tg) {
-      setSendErr("Telegram API not loaded — close and reopen this app from the bot's ☰ menu button.");
-      return;
-    }
-    if (!inApp) {
-      setSendErr(`No Mini App session (platform=${platform}, initData empty). sendData only works when opened from the bot's ☰ menu button.`);
-      return;
-    }
     if (a.confirm && !window.confirm("Abort the running turn?")) return;
+    if (!tg || !inApp) {
+      openViaChat(a.id);
+      return;
+    }
     try {
       tg.sendData(JSON.stringify({ type: "pi-dashboard", action: a.id }));
+      setSent(a.id);
+      setTimeout(() => setSent(""), 5000);
     } catch (e) {
-      setSendErr(`sendData failed: ${e?.message || e}. Reopen from the bot's ☰ menu button and try again.`);
-      return;
+      setSendErr(`sendData failed — falling back to chat link.`);
+      openViaChat(a.id);
     }
-    setSent(a.id);
-    setTimeout(() => setSent(""), 5000);
+  };
+
+  const openViaChat = (id) => {
+    const url = viaChat(id);
+    if (tg?.openTelegramLink) tg.openTelegramLink(url);
+    else window.open(url, "_blank");
   };
 
   if (err) return <div className="center">⚠ snapshot unavailable: {err}</div>;
@@ -61,20 +65,21 @@ export default function App() {
 
   return (
     <main>
+      <div className="strip" style={{ background: STRIP }} aria-hidden="true" />
       <header>
         <h1>
           pi {busy ? "🔴 busy" : "🟢 idle"}
         </h1>
         <p className="sub">
-          {snap.status?.model ?? "unknown model"} · updated{" "}
-          {snap.generated_at ? new Date(snap.generated_at).toLocaleString() : "?"}{" "}
-          · {BUILD} · ctx: {platform}{inApp ? "✓" : "✗"}
+          {snap.status?.model ?? "unknown model"} · {BUILD} · ctx: {platform}
+          {inApp ? "✓" : "✗"}
         </p>
       </header>
 
       {!inApp && (
         <div className="warn" role="alert">
-          ⚠ Not in a Mini App session (platform: {platform}). Actions need the bot's ☰ menu button in Telegram.
+          ⚠ Not in a Mini App session (platform: {platform}) — buttons will route
+          through the chat instead.
         </div>
       )}
       {sendErr && <div className="warn" role="alert">⚠ {sendErr}</div>}
@@ -88,6 +93,17 @@ export default function App() {
             </button>
           ))}
         </div>
+        <p className="dim fallback-links">
+          via chat:{" "}
+          {ACTIONS.map((a, i) => (
+            <span key={a.id}>
+              {i > 0 && " · "}
+              <a href={viaChat(a.id)} onClick={(e) => { e.preventDefault(); openViaChat(a.id); }}>
+                {a.id} ↗
+              </a>
+            </span>
+          ))}
+        </p>
       </section>
 
       <section>
