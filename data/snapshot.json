@@ -1,6 +1,40 @@
 {
-  "generated_at": "2026-09-12T02:40:00Z",
-  "status": { "state": "idle", "model": "awaiting first bridge push" },
-  "sessions": [],
-  "knowledge": { "dev": 0, "research": 0, "ux-ui": 0, "docs": 0, "qa": 0, "review": 0 }
+  "generated_at": "2026-09-12T02:49:32.176Z",
+  "status": {
+    "state": "idle",
+    "model": "zai/glm-5.3"
+  },
+  "sessions": [
+    {
+      "id": "7f36e858",
+      "when": "2026-09-12T02:46:06.410Z",
+      "messages": 86
+    },
+    {
+      "id": "d1fa5b69",
+      "when": "2026-09-12T02:34:25.938Z",
+      "messages": 373
+    },
+    {
+      "id": "b068e422",
+      "when": "2026-09-11T17:17:16.906Z",
+      "messages": 72
+    },
+    {
+      "id": "2724e1e0",
+      "when": "2026-09-11T17:09:24.135Z",
+      "messages": 2
+    },
+    {
+      "id": "f3539399",
+      "when": "2026-09-11T17:01:11.764Z",
+      "messages": 52
+    }
+  ],
+  "knowledge": {
+    "dev": 2,
+    "docs": 1,
+    "qa": 1,
+    "research": 3
+  }
 }
