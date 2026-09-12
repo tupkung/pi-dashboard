@@ -18,6 +18,7 @@ export default function App() {
   const [snap, setSnap] = useState(null);
   const [err, setErr] = useState("");
   const [sent, setSent] = useState("");
+  const [sendErr, setSendErr] = useState("");
 
   useEffect(() => {
     tg?.ready();
@@ -29,10 +30,20 @@ export default function App() {
   }, []);
 
   const run = (a) => {
+    setSendErr("");
+    if (!tg) {
+      setSendErr("Telegram API not loaded — close and reopen this app from the bot's ☰ menu button.");
+      return;
+    }
     if (a.confirm && !window.confirm("Abort the running turn?")) return;
-    tg?.sendData(JSON.stringify({ type: "pi-dashboard", action: a.id }));
+    try {
+      tg.sendData(JSON.stringify({ type: "pi-dashboard", action: a.id }));
+    } catch (e) {
+      setSendErr(`sendData failed: ${e?.message || e}. Reopen from the bot's ☰ menu button and try again.`);
+      return;
+    }
     setSent(a.id);
-    setTimeout(() => setSent(""), 1500);
+    setTimeout(() => setSent(""), 5000);
   };
 
   if (err) return <div className="center">⚠ snapshot unavailable: {err}</div>;
@@ -49,15 +60,18 @@ export default function App() {
         <p className="sub">
           {snap.status?.model ?? "unknown model"} · updated{" "}
           {snap.generated_at ? new Date(snap.generated_at).toLocaleString() : "?"}
+          {!tg && " · ⚠ no Telegram API"}
         </p>
       </header>
+
+      {sendErr && <div className="warn" role="alert">⚠ {sendErr}</div>}
 
       <section>
         <h2>Actions</h2>
         <div className="grid">
           {ACTIONS.map((a) => (
             <button key={a.id} onClick={() => run(a)} className={sent === a.id ? "ok" : ""}>
-              {sent === a.id ? "✓ sent" : a.label}
+              {sent === a.id ? "✓ sent — reply arrives in this chat" : a.label}
             </button>
           ))}
         </div>
