@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 
 const tg = typeof window !== "undefined" ? window.Telegram?.WebApp : null;
+// Visible build stamp: ends "which bundle is this?" arguments forever.
+const BUILD = "v2-diag";
+const platform = tg?.platform ?? "no-api";
+const inApp = !!tg?.initData;
 
 // Snapshot is fetched from raw.githubusercontent.com so data pushes never
 // need a Pages rebuild. CDN caching (~5 min) matches the heartbeat budget.
@@ -35,6 +39,10 @@ export default function App() {
       setSendErr("Telegram API not loaded — close and reopen this app from the bot's ☰ menu button.");
       return;
     }
+    if (!inApp) {
+      setSendErr(`No Mini App session (platform=${platform}, initData empty). sendData only works when opened from the bot's ☰ menu button.`);
+      return;
+    }
     if (a.confirm && !window.confirm("Abort the running turn?")) return;
     try {
       tg.sendData(JSON.stringify({ type: "pi-dashboard", action: a.id }));
@@ -47,7 +55,7 @@ export default function App() {
   };
 
   if (err) return <div className="center">⚠ snapshot unavailable: {err}</div>;
-  if (!snap) return <div className="center">loading…</div>;
+  if (!snap) return <div className="center">loading… {BUILD}</div>;
 
   const busy = snap.status?.state === "busy";
 
@@ -59,11 +67,16 @@ export default function App() {
         </h1>
         <p className="sub">
           {snap.status?.model ?? "unknown model"} · updated{" "}
-          {snap.generated_at ? new Date(snap.generated_at).toLocaleString() : "?"}
-          {!tg && " · ⚠ no Telegram API"}
+          {snap.generated_at ? new Date(snap.generated_at).toLocaleString() : "?"}{" "}
+          · {BUILD} · ctx: {platform}{inApp ? "✓" : "✗"}
         </p>
       </header>
 
+      {!inApp && (
+        <div className="warn" role="alert">
+          ⚠ Not in a Mini App session (platform: {platform}). Actions need the bot's ☰ menu button in Telegram.
+        </div>
+      )}
       {sendErr && <div className="warn" role="alert">⚠ {sendErr}</div>}
 
       <section>
