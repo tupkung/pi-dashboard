@@ -1,24 +1,41 @@
 {
-  "generated_at": "2026-09-12T08:30:20.445Z",
+  "generated_at": "2026-09-12T08:31:35.547Z",
   "status": {
-    "state": "busy",
+    "state": "idle",
     "model": "zai/glm-5.3"
   },
   "sessions": [
     {
-      "id": "7205b721",
-      "when": "2026-09-12T08:29:15.751Z",
-      "messages": 48
+      "id": "5ab78488",
+      "when": "2026-09-12T08:26:55.631Z",
+      "messages": 15
     },
     {
-      "id": "647e54a6",
-      "when": "2026-09-12T06:24:51.188Z",
-      "messages": 194
+      "id": "18101748",
+      "when": "2026-09-12T05:19:42.706Z",
+      "messages": 150
+    },
+    {
+      "id": "33792794",
+      "when": "2026-09-12T04:00:58.223Z",
+      "messages": 107
+    },
+    {
+      "id": "4cf626a6",
+      "when": "2026-09-12T03:28:56.068Z",
+      "messages": 169
+    },
+    {
+      "id": "7f36e858",
+      "when": "2026-09-12T02:46:06.410Z",
+      "messages": 86
     }
   ],
   "knowledge": {
-    "findings": 2,
-    "methods": 3,
-    "sources": 1
+    "dev": 5,
+    "docs": 2,
+    "qa": 2,
+    "research": 4,
+    "review": 1
   }
 }
