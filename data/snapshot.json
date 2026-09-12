@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-09-12T03:34:47.298Z",
+  "generated_at": "2026-09-12T03:35:39.635Z",
   "status": {
-    "state": "busy",
+    "state": "idle",
     "model": "zai/glm-5.3"
   },
   "sessions": [
     {
       "id": "33792794",
-      "when": "2026-09-12T03:34:31.331Z",
-      "messages": 44
+      "when": "2026-09-12T03:35:09.715Z",
+      "messages": 47
     },
     {
       "id": "4cf626a6",
