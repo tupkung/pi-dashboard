@@ -1,41 +1,19 @@
 {
-  "generated_at": "2026-09-12T06:36:18.183Z",
+  "generated_at": "2026-09-12T06:38:50.842Z",
   "status": {
     "state": "idle",
     "model": "zai/glm-5.3"
   },
   "sessions": [
     {
-      "id": "18101748",
-      "when": "2026-09-12T05:19:42.706Z",
-      "messages": 150
-    },
-    {
-      "id": "33792794",
-      "when": "2026-09-12T04:00:58.223Z",
-      "messages": 107
-    },
-    {
-      "id": "4cf626a6",
-      "when": "2026-09-12T03:28:56.068Z",
-      "messages": 169
-    },
-    {
-      "id": "7f36e858",
-      "when": "2026-09-12T02:46:06.410Z",
-      "messages": 86
-    },
-    {
-      "id": "d1fa5b69",
-      "when": "2026-09-12T02:34:25.938Z",
-      "messages": 373
+      "id": "647e54a6",
+      "when": "2026-09-12T06:24:51.188Z",
+      "messages": 194
     }
   ],
   "knowledge": {
-    "dev": 5,
-    "docs": 2,
-    "qa": 2,
-    "research": 4,
-    "review": 1
+    "findings": 2,
+    "methods": 3,
+    "sources": 1
   }
 }
