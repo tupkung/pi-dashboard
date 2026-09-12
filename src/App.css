@@ -78,3 +78,12 @@ li {
   text-align: center;
   opacity: 0.7;
 }
+.warn {
+  background: rgba(255, 193, 7, 0.12);
+  border: 1px solid rgba(255, 193, 7, 0.5);
+  color: inherit;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  margin: 8px 0 0;
+}
