@@ -1,10 +1,16 @@
 {
-  "generated_at": "2026-09-12T05:39:16.711Z",
+  "generated_at": "2026-09-12T05:39:29.887Z",
   "status": {
-    "state": "busy",
+    "state": "idle",
     "model": "zai/glm-5.3"
   },
-  "sessions": [],
+  "sessions": [
+    {
+      "id": "647e54a6",
+      "when": "2026-09-12T05:39:16.702Z",
+      "messages": 2
+    }
+  ],
   "knowledge": {
     "methods": 1
   }
