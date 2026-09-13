@@ -1,39 +1,41 @@
 {
-  "generated_at": "2026-09-13T00:16:18.896Z",
+  "generated_at": "2026-09-13T00:16:54.087Z",
   "status": {
     "state": "idle",
     "model": "zai/glm-5.3"
   },
   "sessions": [
     {
-      "id": "f181ddd0",
-      "when": "2026-09-12T17:08:26.871Z",
-      "messages": 78
+      "id": "bd5ab59f",
+      "when": "2026-09-12T17:00:40.557Z",
+      "messages": 61
     },
     {
-      "id": "523b0b66",
-      "when": "2026-09-12T16:22:29.720Z",
-      "messages": 115
+      "id": "43cbb9a8",
+      "when": "2026-09-12T08:50:50.421Z",
+      "messages": 25
     },
     {
-      "id": "a27e84cb",
-      "when": "2026-09-12T15:56:51.881Z",
-      "messages": 166
+      "id": "5ab78488",
+      "when": "2026-09-12T08:46:29.223Z",
+      "messages": 86
     },
     {
-      "id": "eb27a699",
-      "when": "2026-09-12T11:55:10.226Z",
-      "messages": 44
+      "id": "18101748",
+      "when": "2026-09-12T05:19:42.706Z",
+      "messages": 150
     },
     {
-      "id": "3b026df7",
-      "when": "2026-09-12T09:19:38.977Z",
-      "messages": 105
+      "id": "33792794",
+      "when": "2026-09-12T04:00:58.223Z",
+      "messages": 107
     }
   ],
   "knowledge": {
-    "findings": 10,
-    "methods": 6,
-    "sources": 9
+    "dev": 7,
+    "docs": 2,
+    "qa": 2,
+    "research": 7,
+    "review": 1
   }
 }
