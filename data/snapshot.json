@@ -1,10 +1,15 @@
 {
-  "generated_at": "2026-09-15T16:03:54.521Z",
+  "generated_at": "2026-09-15T16:04:27.119Z",
   "status": {
-    "state": "busy",
+    "state": "idle",
     "model": "zai/glm-5.3"
   },
   "sessions": [
+    {
+      "id": "8cf96261",
+      "when": "2026-09-15T16:04:12.679Z",
+      "messages": 14
+    },
     {
       "id": "6aae5b0e",
       "when": "2026-09-15T16:00:34.203Z",
@@ -24,11 +29,6 @@
       "id": "d8de95d9",
       "when": "2026-09-14T15:48:20.013Z",
       "messages": 82
-    },
-    {
-      "id": "eb0af147",
-      "when": "2026-09-14T09:49:25.328Z",
-      "messages": 88
     }
   ],
   "knowledge": {
